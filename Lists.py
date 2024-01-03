@@ -9,6 +9,12 @@ def add_to_list(L1: ListNode, value = None):
         current_node = current_node.next
     current_node.next = ListNode(value)
 
+def add_list_to_list(L1:ListNode, L2: ListNode):
+    current_node = L1
+    while current_node.next:
+        current_node = current_node.next
+    current_node.next = L2    
+
 def print_list(head: ListNode):
     print_me = []
     current_node = head
@@ -89,3 +95,29 @@ print("\nPart2. Reverse sublist for below: ")
 print_list(L1)
 print("Reversed list below:")
 print_list(p2_reverse_list(L1, 1, 3))
+
+# P3: Check if linked list has a cycle
+# My own approoach uses extra storage but EPI calls for no storage. 
+# I dont know how to do that
+def p3_has_cycle(L1: ListNode) -> None:
+    bank = {}
+    current_node = L1
+    while current_node:
+        if current_node.value in bank:
+            return current_node
+        else:
+            bank[current_node.value] = current_node
+            current_node = current_node.next
+    return None
+
+L1 = L1_head = ListNode(11)
+add_to_list(L1, 3)
+add_to_list(L1, 5)
+add_to_list(L1, 7)
+add_to_list(L1, 2)
+print("\nPart3. Check if linked list has a cycle")
+print_list(L1)
+assert p3_has_cycle(L1) is None, f"L1 currently has no cycles. Recheck p3_has_cycle."
+add_list_to_list(L1, L1_head)
+assert p3_has_cycle(L1) is not None, f"L1 currently has a loop. However p3_has_cycle detected no loops."
+

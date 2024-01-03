@@ -99,15 +99,28 @@ print_list(p2_reverse_list(L1, 1, 3))
 # P3: Check if linked list has a cycle
 # My own approoach uses extra storage but EPI calls for no storage. 
 # I dont know how to do that
-def p3_has_cycle(L1: ListNode) -> None:
-    bank = {}
+def p3_has_cycle(L1: ListNode) -> ListNode:
+    bank = set()    # Use hashset instead of dict[] because two different nodes can have same value
     current_node = L1
     while current_node:
-        if current_node.value in bank:
+        if current_node in bank:
             return current_node
         else:
-            bank[current_node.value] = current_node
+            bank.add(current_node)
             current_node = current_node.next
+    return current_node
+
+# Common approach suggested using slow/fast pointers from Floyd's Tortoise and Hare Algo
+def p3_has_cycle_rabbit_tortoise_pointers(L1: ListNode) -> ListNode:
+    slow = L1
+    fast = slow.next.next
+
+    while fast and fast.next:
+        if slow == fast:
+            return slow
+        else:
+            fast = fast.next.next
+            slow = slow.next
     return None
 
 L1 = L1_head = ListNode(11)
@@ -118,6 +131,8 @@ add_to_list(L1, 2)
 print("\nPart3. Check if linked list has a cycle")
 print_list(L1)
 assert p3_has_cycle(L1) is None, f"L1 currently has no cycles. Recheck p3_has_cycle."
+assert p3_has_cycle_rabbit_tortoise_pointers(L1) is None, f"L1 currently has no cycles. Recheck p3_has_cycle."
 add_list_to_list(L1, L1_head)
 assert p3_has_cycle(L1) is not None, f"L1 currently has a loop. However p3_has_cycle detected no loops."
+assert p3_has_cycle_rabbit_tortoise_pointers(L1) is not None,f"L1 currently has a loop. However p3_has_cycle detected no loops."
 

@@ -60,7 +60,7 @@ def p2_reverse_list(L1: ListNode, start: int, finish: int) -> ListNode:
         anchor = tail
         tail = tail.next
 
-    '''
+    ''' SCRATCHPAD: searching for a pattern
     tail = end = new.next
     tail.next = end - 1 = new = new1.next
     tail.next.next = end - 2 = new1 = new2.next
@@ -76,8 +76,6 @@ def p2_reverse_list(L1: ListNode, start: int, finish: int) -> ListNode:
         else:
             new.next = ListNode(tail.value)
         new.value, temp, tail = tail.next.value, new, tail.next
-        # temp = new
-        # tail = tail.next
     
     return temp
             

@@ -1,3 +1,5 @@
+# Suggested Chapter 7 Problems
+# 1, 2, 3, 4, 7, 10, 11
 class ListNode:
     def __init__(self, data = None):
         self.next = None        
@@ -136,3 +138,33 @@ add_list_to_list(L1, L1_head)
 assert p3_has_cycle(L1) is not None, f"L1 currently has a loop. However p3_has_cycle detected no loops."
 assert p3_has_cycle_rabbit_tortoise_pointers(L1) is not None,f"L1 currently has a loop. However p3_has_cycle detected no loops."
 
+# P4: Check if two lists have any overlap
+
+# My approach involved nested loops, but it's inefficient in time at O(n^2)
+# Not good
+def p4_no_overlapping_list(L1: ListNode, L2: ListNode) -> ListNode:
+    while L1:
+        while L2:
+            if L1 == L2:
+                return L1
+            else:
+                L2 = L2.next
+        L1 = L1.next
+
+    return None
+
+def p4_optimized_no_overlapping_list(L1: ListNode, L2: ListNode) -> ListNode:
+    return
+
+L1 = L1_head = ListNode(11)
+add_to_list(L1, 3)
+add_to_list(L1, 5)
+add_to_list(L1, 7)
+add_to_list(L1, 2)
+
+L2 = L2_head = ListNode(9)
+add_to_list(L2, 1)
+
+assert p4_no_overlapping_list(L1_head, L2_head) is None, f"The function detects overlap when there isn't any."
+add_list_to_list(L2, L1_head) # coerce overlap
+assert p4_no_overlapping_list(L1_head, L2_head) is not None, f"The function detects no overlap when we expect it."
